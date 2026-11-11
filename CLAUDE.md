@@ -20,7 +20,7 @@ CI additionally passes `-p:AssemblyVersion` (pinned to the major) and `-p:FileVe
 
 ## Architecture
 
-This is the **Neo4j querying package** of the `PureQL.CSharp.Model.Graph` family: it reads stored query graphs back into `StoredQuery` values. It depends on `PureQL.CSharp.Model.Graph` `0.1.0-preview.1.0.0`, `PureQL.CSharp.Model.Graph.Neo4j.Abstractions` `0.1.0-preview.1.0.0` and `Neo4j.Driver` `6.5.1`, and on no other operation package. Namespace `PureQL.CSharp.Model.Graph.Neo4j.Querying`.
+This is the **Neo4j querying package** of the `PureQL.CSharp.Model.Graph` family: it reads stored query graphs back into `StoredQuery` values. It depends on `PureQL.CSharp.Model.Graph` `0.1.0-preview.1.1.0`, `PureQL.CSharp.Model.Graph.Neo4j.Abstractions` `0.1.0-preview.1.1.0` and `Neo4j.Driver` `6.5.1`, and on no other operation package. Namespace `PureQL.CSharp.Model.Graph.Neo4j.Querying`.
 
 Public API, one type per file:
 
