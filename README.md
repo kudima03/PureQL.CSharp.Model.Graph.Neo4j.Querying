@@ -95,8 +95,8 @@ dotnet add package PureQL.CSharp.Model.Graph.Neo4j.Querying
 
 ## Dependencies
 
-- [`PureQL.CSharp.Model.Graph`](https://github.com/kudima03/PureQL.CSharp.Model.Graph) `0.1.0-preview.1.0.0` — reads a query graph back into a `PureQLQuery`
-- [`PureQL.CSharp.Model.Graph.Neo4j.Abstractions`](https://github.com/kudima03/PureQL.CSharp.Model.Graph.Neo4j.Abstractions) `0.1.0-preview.1.0.0` — `INeo4jStoredQueries` and `StoredQuery`
+- [`PureQL.CSharp.Model.Graph`](https://github.com/kudima03/PureQL.CSharp.Model.Graph) `0.1.0-preview.1.1.0` — reads a query graph back into a `PureQLQuery`
+- [`PureQL.CSharp.Model.Graph.Neo4j.Abstractions`](https://github.com/kudima03/PureQL.CSharp.Model.Graph.Neo4j.Abstractions) `0.1.0-preview.1.1.0` — `INeo4jStoredQueries` and `StoredQuery`
 - [`Neo4j.Driver`](https://www.nuget.org/packages/Neo4j.Driver) `6.5.1`
 
 ## Target Frameworks
