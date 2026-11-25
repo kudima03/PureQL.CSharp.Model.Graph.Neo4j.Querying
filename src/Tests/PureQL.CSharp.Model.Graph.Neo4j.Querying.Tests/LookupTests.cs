@@ -9,22 +9,25 @@ public sealed class LookupTests(Neo4jFixture fixture)
     public async Task FindsTheQueriesReferencingEachField()
     {
         Dictionary<(string Source, string Field), HashSet<Guid>> expected = Fields();
-        await using IAsyncSession session = fixture.Session();
 
         Assert.NotEmpty(expected);
-        foreach (
-            KeyValuePair<(string Source, string Field), HashSet<Guid>> pair in expected
-        )
-        {
-            IReadOnlyList<Guid> ids = await new QueriesReferencingField(
-                session,
-                pair.Key.Source,
-                pair.Key.Field
-            ).ValueAsync();
+        // Each lookup scans the store (the fixture creates no index): the hundreds of
+        // fields of the samples are looked up concurrently, each in a session of its own.
+        await Parallel.ForEachAsync(
+            expected,
+            async (pair, cancellation) =>
+            {
+                await using IAsyncSession session = fixture.Session();
+                IReadOnlyList<Guid> ids = await new QueriesReferencingField(
+                    session,
+                    pair.Key.Source,
+                    pair.Key.Field
+                ).ValueAsync(cancellation);
 
-            Assert.Equal(ids.Count, ids.Distinct().Count());
-            Assert.Equal(pair.Value.Order(), ids.Order());
-        }
+                Assert.Equal(ids.Count, ids.Distinct().Count());
+                Assert.Equal(pair.Value.Order(), ids.Order());
+            }
+        );
     }
 
     [Fact]

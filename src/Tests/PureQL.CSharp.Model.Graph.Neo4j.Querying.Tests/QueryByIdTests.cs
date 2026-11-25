@@ -9,7 +9,7 @@ public sealed class QueryByIdTests(Neo4jFixture fixture)
     [Fact]
     public void EverySampleIsStored()
     {
-        Assert.Equal(151, fixture.Ids.Count);
+        Assert.Equal(386, fixture.Ids.Count);
     }
 
     [Theory]
