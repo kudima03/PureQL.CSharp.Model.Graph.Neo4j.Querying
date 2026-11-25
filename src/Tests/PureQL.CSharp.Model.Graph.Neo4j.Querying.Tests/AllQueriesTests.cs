@@ -33,7 +33,7 @@ public sealed class AllQueriesTests(Neo4jFixture fixture)
             QueriesByIdsTests.ReadAsync(new AllQueries(transaction).Values())
         );
 
-        Assert.Equal(86, stored.Count);
+        Assert.Equal(151, stored.Count);
     }
 
     [Fact]
