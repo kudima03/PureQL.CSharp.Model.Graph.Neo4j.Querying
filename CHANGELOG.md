@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Follows `PureQL.CSharp.Model` `0.1.0-preview.15.0.0` (PureQL specification
+`0.1.0-preview.3.0.0`). The public API is unchanged; the queries read back are those of the
+new model, so combined, window, inline-rows and recursive queries are read too.
+
+### Changed
+
+- **Breaking:** depends on `PureQL.CSharp.Model.Graph` `0.1.0-preview.2.0.0` and
+  `PureQL.CSharp.Model.Graph.Neo4j.Abstractions` `0.1.0-preview.2.0.0`, on
+  `PureQL.CSharp.Model` `0.1.0-preview.15.0.0`.
+- A node labelled `List` and `Node` (one row of the inline rows of a `SubqueryRows`) is
+  read with `List` as its label, as `PureQL.CSharp.Model.Graph` expects.
+- Graphs written with `PureQL.CSharp.Model.Graph` `0.1.0-preview.1.x` are not read back
+  (`GraphMappingException`): drop them and write the queries again. There is no
+  migration.
+- The integration tests store and read back all 151 queries of
+  `PureQL.CSharp.Model.Samples` `0.1.0-preview.4.0.0`, compared as JSON through
+  `PureQL.CSharp.Model.Serialization` `0.1.0-preview.7.0.0`.
+
 ## [0.1.0-preview.0.2.0] - 2026-11-11
 
 ### Changed

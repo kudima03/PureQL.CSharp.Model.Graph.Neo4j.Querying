@@ -30,7 +30,7 @@ public sealed class QueriesByIdsTests(Neo4jFixture fixture)
             new QueriesByIds(session, [.. fixture.Ids.Values]).Values()
         );
 
-        Assert.Equal(86, stored.Count);
+        Assert.Equal(151, stored.Count);
         AssertSamples(stored);
     }
 

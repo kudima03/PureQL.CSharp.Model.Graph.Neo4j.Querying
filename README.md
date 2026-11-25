@@ -39,7 +39,7 @@ The lookups and the reads by id are served by the `Node(queryId)`, `Node(field, 
 
 ## How a query is read back
 
-The rows of a query's nodes become `ReadNode`s of `PureQL.CSharp.Model.Graph`: the label is the node's record label (the one that is neither `Node` nor `Query`), the properties are converted to the graph's store-neutral representation (integers stay `long`; a list becomes a `string[]`, `long[]` or `bool[]` by its elements, an empty list a `string[]`; a `null` counts as absent), and the children are wired by element id, grouped by relationship type and ordered by `position`. `QueryGraphs.Read` then reads the node labelled `Query`. `QueriesByIds` reads all its queries with one statement and yields each query as soon as its rows are read; `AllQueries` pages through the ids of the `Query` nodes 50 at a time, so memory holds one page of ids and one query however many queries are stored.
+The rows of a query's nodes become `ReadNode`s of `PureQL.CSharp.Model.Graph`: the label is the node's record label (the one that is neither `Node` nor `Query`; a node holding one row of inline rows carries `GraphLabels.List` in its place), the properties are converted to the graph's store-neutral representation (integers stay `long`; a list becomes a `string[]`, `long[]` or `bool[]` by its elements, an empty list a `string[]`; a `null` counts as absent), and the children are wired by element id, grouped by relationship type and ordered by `position`. `QueryGraphs.Read` then reads the node labelled `Query`. `QueriesByIds` reads all its queries with one statement and yields each query as soon as its rows are read; `AllQueries` pages through the ids of the `Query` nodes 50 at a time, so memory holds one page of ids and one query however many queries are stored.
 
 ## Usage
 
@@ -95,8 +95,8 @@ dotnet add package PureQL.CSharp.Model.Graph.Neo4j.Querying
 
 ## Dependencies
 
-- [`PureQL.CSharp.Model.Graph`](https://github.com/kudima03/PureQL.CSharp.Model.Graph) `0.1.0-preview.1.1.0` — reads a query graph back into a `PureQLQuery`
-- [`PureQL.CSharp.Model.Graph.Neo4j.Abstractions`](https://github.com/kudima03/PureQL.CSharp.Model.Graph.Neo4j.Abstractions) `0.1.0-preview.1.1.0` — `INeo4jStoredQueries` and `StoredQuery`
+- [`PureQL.CSharp.Model.Graph`](https://github.com/kudima03/PureQL.CSharp.Model.Graph) `0.1.0-preview.2.0.0` — reads a query graph back into a `PureQLQuery`
+- [`PureQL.CSharp.Model.Graph.Neo4j.Abstractions`](https://github.com/kudima03/PureQL.CSharp.Model.Graph.Neo4j.Abstractions) `0.1.0-preview.2.0.0` — `INeo4jStoredQueries` and `StoredQuery`
 - [`Neo4j.Driver`](https://www.nuget.org/packages/Neo4j.Driver) `6.5.1`
 
 ## Target Frameworks

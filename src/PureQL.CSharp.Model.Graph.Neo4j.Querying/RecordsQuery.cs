@@ -6,9 +6,12 @@ namespace PureQL.CSharp.Model.Graph.Neo4j.Querying;
 /// <summary>
 /// A stored query read back from the rows of <see cref="QueryByIdStatement"/> or
 /// <see cref="QueriesByIdsStatement"/> for that query: one <see cref="ReadNode"/> per
-/// node, labelled with its record label and holding its converted properties, its
-/// children wired by element id, grouped by relationship type and ordered by position,
-/// and the node labelled <see cref="GraphLabels.Query"/> read as the root.
+/// node, labelled with its record label (the label that is neither
+/// <see cref="GraphLabels.Node"/> nor <see cref="GraphLabels.Query"/>, so
+/// <see cref="GraphLabels.List"/> for a node holding one row of inline rows) and holding
+/// its converted properties, its children wired by element id, grouped by relationship
+/// type and ordered by position, and the node labelled <see cref="GraphLabels.Query"/>
+/// read as the root.
 /// </summary>
 /// <param name="Id">The identifier of the query.</param>
 /// <param name="Records">The rows of the query's nodes, each with <c>n</c> and <c>out</c>.</param>
