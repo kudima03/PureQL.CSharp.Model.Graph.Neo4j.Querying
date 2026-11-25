@@ -16,6 +16,8 @@ public sealed class Neo4jFixture : IAsyncLifetime
 
     private IDriver? _driver;
 
+    private Dictionary<Guid, QueryGraph>? _graphs;
+
     public IDriver Driver =>
         _driver ?? throw new InvalidOperationException("Not started.");
 
@@ -27,7 +29,7 @@ public sealed class Neo4jFixture : IAsyncLifetime
 
     /// <summary>The graph of each stored query, by its identifier.</summary>
     public IReadOnlyDictionary<Guid, QueryGraph> Graphs =>
-        Ids.ToDictionary(
+        _graphs ??= Ids.ToDictionary(
             sample => sample.Value,
             sample => QueryGraphs.Of(QuerySamples.All[sample.Key], sample.Value)
         );
@@ -42,16 +44,17 @@ public sealed class Neo4jFixture : IAsyncLifetime
         await _container.StartAsync();
         _driver = GraphDatabase.Driver(_container.GetConnectionString(), AuthTokens.None);
         await using IAsyncSession session = Session();
-        foreach (QueryGraph graph in Graphs.Values)
+        // One transaction for every graph: a commit per query took twice as long.
+        await session.ExecuteWriteAsync(async transaction =>
         {
-            _ = await session.ExecuteWriteAsync(async transaction =>
+            foreach (QueryGraph graph in Graphs.Values)
             {
                 IResultCursor cursor = await transaction.RunAsync(
                     new InsertStatement(graph).Value
                 );
-                return await cursor.ConsumeAsync();
-            });
-        }
+                _ = await cursor.ConsumeAsync();
+            }
+        });
     }
 
     public async Task DisposeAsync()

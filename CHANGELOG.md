@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- The integration tests store and read back all 386 queries of
+  `PureQL.CSharp.Model.Samples` `0.1.0-preview.4.1.0` (151 before), the specification's
+  tests included, the deepest nested ones among them. The store is seeded in one
+  transaction and the field lookups run concurrently, so the suite runs in about 35
+  seconds. The package itself is unchanged.
+
 ## [0.1.0-preview.1.0.0] - 2026-11-25
 
 Follows `PureQL.CSharp.Model` `0.1.0-preview.15.0.0` (PureQL specification
